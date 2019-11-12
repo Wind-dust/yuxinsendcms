@@ -48,7 +48,7 @@
             placeholder: '请输入标题'
           },
           'price': {
-            type: 'number',
+            type: 'input',
             label: '价格',
             placeholder: '可保留小数点后5位'
           },
@@ -63,12 +63,6 @@
           pageNum: 10
         },
         page: 1,
-        screenQuery: [{
-          ref: 'supplierName',
-          label: '供应商名称',
-          placeholder: '请输入供应商名称',
-          type: 'input',
-        }],
         list: [],
         total: 0
       }

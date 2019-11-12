@@ -155,26 +155,6 @@
           }
         })
       },
-      goCourier(id) {
-        this.$router.push({
-          path: '/supplier/courier', query: {
-            id: id
-          }
-        })
-      },
-      getsupplierdata(id) {
-        let that = this;
-        that.$request({
-          data: {
-            supplierId: id
-          },
-          url: 'suppliers/getsupplierdata',
-          success(res) {
-            that.ruleForm = res.data
-            that.cardStatus = true
-          }
-        })
-      },
       showCard() {
         this.ruleForm = {}
         this.cardStatus = true

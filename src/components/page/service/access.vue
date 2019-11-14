@@ -48,7 +48,7 @@
             placeholder: '请输入标题'
           },
           'price': {
-            type: 'number',
+            type: 'input',
             label: '价格',
             placeholder: '可保留小数点后5位'
           },

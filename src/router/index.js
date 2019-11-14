@@ -30,6 +30,7 @@ const qualificationDetail = r => require.ensure([], () => r(require('../componen
 const access = r => require.ensure([], () => r(require('../components/page/service/access')), 'access')
 
 const account = r => require.ensure([], () => r(require('../components/page/account/account')), 'account')
+const accountDetail = r => require.ensure([], () => r(require('../components/page/account/accountDetail')), 'accountDetail')
 
 
 Vue.use(Router)
@@ -84,6 +85,9 @@ export default new Router({
       }, {
         path: '/access',
         component: access
+      }, {
+        path: '/accountDetail',
+        component: accountDetail
       }]
   }, {
     path: '/login',

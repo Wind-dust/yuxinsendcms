@@ -164,7 +164,7 @@
             option: []
           },
           "agency_price": {
-            type: 'number',
+            type: 'input',
             label: '代理价格',
             placeholder: '默认统一服务价格'
           }

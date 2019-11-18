@@ -11,8 +11,8 @@
 
     <el-table :data="list" border style="width: 99%">
       <el-table-column type="index" label="序号"></el-table-column>
-      <el-table-column prop="task_name" label="任务名称"></el-table-column>
-      <el-table-column prop="task_content" label="任务内容"></el-table-column>
+      <el-table-column show-overflow-tooltip prop="task_name" label="任务名称"></el-table-column>
+      <el-table-column show-overflow-tooltip prop="task_content" label="任务内容"></el-table-column>
       <el-table-column prop="task_no" label="任务编号"></el-table-column>
       <el-table-column prop="_send_status" label="发送状态"></el-table-column>
       <el-table-column prop="send_num" label="发送数量"></el-table-column>
@@ -21,7 +21,6 @@
       <el-table-column width="290"  label="操作">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="allotAisle(scope.row.id)">分配通道</el-button>
-          <el-button type="primary" size="small" @click="setService(scope.row.id)">设置归属服务</el-button>
           <el-button type="primary" size="small" v-if="scope.row.free_trial == 1" @click="auditTask(scope.row.id)">审核</el-button>
         </template>
       </el-table-column>
@@ -128,21 +127,7 @@
       //     }
       //   })
       // },
-      setService(id){
-        let service = this.serviceOption
-        this.ruleType = {
-          "business_id":{
-            type:'select',
-            label:"服务",
-            option:service
-          }
-        }
-        this.rules = ['business_id']
-        this.ruleForm = {}
-        this.ruleForm.channel_id = id
-        this.ruleForm.type = 'set'
-        this.cardStatus = true
-      },
+
       auditTask(id) {
         this.ruleType = {
           'free_trial': {
@@ -186,28 +171,6 @@
         this.cardStatus = true
         console.log(this.ruleType)
       },
-      getAccess() {
-        let that = this
-        that.$request({
-          url: 'administrator/getChannel',
-          success(res) {
-            console.log(res)
-            that.access = that.disAccess(res.channel_list)
-          }
-        })
-      },
-      disAccess(data){
-        let json = {},
-          arr = []
-        for (let i=0;i<data.length;i++) {
-          json = {
-            label:data[i].title,
-            value:data[i].id
-          }
-          arr.push(json)
-        }
-        return arr
-      },
       getService() {
         let that = this
         that.$request({
@@ -233,6 +196,29 @@
         }
         this.serviceOption = arr
       },
+      getAccess() {
+        let that = this
+        that.$request({
+          url: 'administrator/getChannel',
+          success(res) {
+            console.log(res)
+            that.access = that.disAccess(res.channel_list)
+          }
+        })
+      },
+      disAccess(data){
+        let json = {},
+          arr = []
+        for (let i=0;i<data.length;i++) {
+          json = {
+            label:data[i].title,
+            value:data[i].id
+          }
+          arr.push(json)
+        }
+        return arr
+      },
+
       showCard() {
         this.ruleForm = {}
         this.cardStatus = true
@@ -241,26 +227,9 @@
         this.cardStatus = false
       },
       sumbit(data) {
-        if (data.ruleForm.type === 'set'){
-          this.setAllotService(data.ruleForm)
-          return
-        }
         data.ruleForm.type === 'audit' ? this.audit(data.ruleForm) : this.allot(data.ruleForm)
       },
-      setAllotService(data){
-        let that = this
-        that.$request({
-          url:'administrator/settingChannel',
-          data:data,
-          form:3,
-          success(res){
-            console.log(res)
-            that.ruleForm = {}
-            that.getTask()
-            that.cardStatus = false
-          }
-        })
-      },
+
       allot(data) {
         let that = this
         that.$request({

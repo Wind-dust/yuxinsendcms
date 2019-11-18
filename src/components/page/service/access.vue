@@ -16,6 +16,7 @@
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="setUserAccess(scope.row.id)">分配用户通道</el-button>
+          <el-button type="primary" size="small" @click="setService(scope.row.id)">设置归属服务</el-button>
           <!--<el-button type="primary" size="small" @click="edit(scope.row.id)">修改优先级</el-button>-->
           <el-button type="primary" size="small" @click="cancel(scope.row.id)">取消使用</el-button>
         </template>
@@ -70,7 +71,8 @@
           type: 'input',
         }],
         list: [],
-        total: 0
+        total: 0,
+        serviceOption:[]
       }
     },
     components: {
@@ -82,6 +84,7 @@
       this.screen.page = parseInt(localStorage.getItem("supplier")) || 1
       this.page = this.screen.page
       this.getAccess()
+      this.getService()
     },
     methods: {
       setUserAccess(id) {
@@ -103,6 +106,31 @@
         }
         this.rules = ['user_phone', 'priority']
         this.cardStatus = true
+      },
+      getService() {
+        let that = this
+        that.$request({
+          url: 'administrator/getBusiness',
+          data: {
+            getall: 1
+          },
+          success(res) {
+            this.serviceOption = that.disBusiness(res.Business)
+            return that.disBusiness(res.Business)
+          }
+        })
+      },
+      disBusiness(data) {
+        let json = {}
+        let arr = []
+        for (let i = 0; i < data.length; i++) {
+          json = {
+            label: data[i].title,
+            value: data[i].id
+          }
+          arr.push(json)
+        }
+        this.serviceOption = arr
       },
       edit(id) {
         this.ruleForm = {}
@@ -156,6 +184,21 @@
           }
         })
       },
+      setService(id){
+        let service = this.serviceOption
+        this.ruleType = {
+          "business_id":{
+            type:'select',
+            label:"服务",
+            option:service
+          }
+        }
+        this.rules = ['business_id']
+        this.ruleForm = {}
+        this.ruleForm.channel_id = id
+        this.ruleForm.type = 'set'
+        this.cardStatus = true
+      },
       showCard() {
         this.ruleForm = {}
         this.cardStatus = true
@@ -164,7 +207,25 @@
         this.cardStatus = false
       },
       sumbit(data) {
+        if (data.ruleForm.type === 'set'){
+          this.setAllotService(data.ruleForm)
+          return
+        }
         parseInt(data.ruleForm.type) === 1 ? this.allocation(data.ruleForm) : this.editPriority(data.ruleForm)
+      },
+      setAllotService(data){
+        let that = this
+        that.$request({
+          url:'administrator/settingChannel',
+          data:data,
+          form:3,
+          success(res){
+            console.log(res)
+            that.ruleForm = {}
+            that.getTask()
+            that.cardStatus = false
+          }
+        })
       },
       allocation(data) {
         let that = this

@@ -115,19 +115,6 @@
         }
         return data
       },
-      // getTaskInfo(id) {
-      //   let that = this
-      //   that.$request({
-      //     url: 'administrator/getUserSendTask',
-      //     data: {id: id},
-      //     success(res) {
-      //       console.log(res)
-      //       that.ruleForm = res.data
-      //       that.cardStatus = true
-      //     }
-      //   })
-      // },
-
       auditTask(id) {
         this.ruleType = {
           'free_trial': {
@@ -150,7 +137,6 @@
         let that = this
         let option = this.serviceOption
         let access = this.access
-        console.log(access)
         this.ruleType = {
           "business_id": {
             type: 'select',
@@ -231,6 +217,8 @@
       },
 
       allot(data) {
+        console.log(data)
+        return
         let that = this
         that.$request({
           url: 'administrator/distributionChannel',

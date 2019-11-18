@@ -79,8 +79,8 @@
       this.getUser()
     },
     methods: {
-      getUserInfoDetail(id){
-        this.$router.push({path:'/accountDetail',query:{id:id}})
+      getUserInfoDetail(id) {
+        this.$router.push({path: '/accountDetail', query: {id: id}})
       },
       getUser: function () {
         let that = this
@@ -90,7 +90,7 @@
           success(res) {
             let result = that.disUserInfo(res.result)
             that.list = result
-            that.total= res.total || 0
+            that.total = res.total || 0
           }
         })
       },
@@ -147,6 +147,19 @@
                 label: '可以'
               }
             ]
+          },
+          "free_trial": {
+            type: 'select',
+            label: '短信发送审核',
+            option: [
+              {
+                value: 1,
+                label: '需要审核'
+              }, {
+                value: 2,
+                label: '不需要审核'
+              }
+            ]
           }
         }
         this.ruleForm.type = 1
@@ -171,6 +184,7 @@
         }
         this.ruleForm.type = 2
         this.ruleForm.uid = id
+        this.rules = ['business_id']
         this.getService()
       },
       getService() {
@@ -181,7 +195,7 @@
             getall: 1
           },
           success(res) {
-             that.disBusiness(res.Business)
+            that.disBusiness(res.Business)
           }
         })
       },

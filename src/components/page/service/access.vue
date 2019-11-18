@@ -150,14 +150,26 @@
       },
       cancel(id) {
         let that = this
-        that.$request({
-          url: 'administrator/delUserChannel',
-          data: {id},
-          form: 3,
-          success(res) {
-            that.getAccess()
-          }
-        })
+        this.$confirm('是否确定取消使用该通道', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          that.$request({
+            url: 'administrator/delUserChannel',
+            data: {id:id},
+            form: 3,
+            success(res) {
+              that.getAccess()
+            }
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+
       },
       getAccess() {
         let that = this

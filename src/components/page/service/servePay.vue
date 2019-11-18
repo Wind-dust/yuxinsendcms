@@ -45,7 +45,7 @@
         num: 1,
         cardStatus: false,
         ruleForm: {},
-        rules: ['name', 'image', 'tel', 'title', 'desc'],
+        rules: ['mobile','business_id','num'],
         ruleType: {
           'mobile': {
             type: 'input',

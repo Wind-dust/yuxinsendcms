@@ -44,7 +44,7 @@
       return {
         num: 1,
         cardStatus: false,
-        rules: ['status'],
+        rules: [],
         ruleForm: {},
         ruleType: {},
         screen: {
@@ -117,6 +117,7 @@
           }
         }
         this.ruleForm.id = id
+        this.rules = ['status']
         this.cardStatus = true
       },
       getOne(id){

@@ -276,3 +276,11 @@ a {
     top: 8px!important;
     right: 3px!important;
 }
+.cell {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  text-align: center!important;
+}

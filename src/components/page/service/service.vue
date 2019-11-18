@@ -10,7 +10,7 @@
 
     <!--<v-screen :screen="screenQuery" @query="onQuery" ></v-screen>-->
 
-    <el-table :data="list" border style="width: 100%">
+    <el-table :data="list" border style="width: 99%">
       <el-table-column type="index" label="序号"></el-table-column>
       <el-table-column prop="title" label="标题"></el-table-column>
       <el-table-column prop="price" label="价格"></el-table-column>
@@ -18,6 +18,7 @@
       <el-table-column fixed="right" label="操作">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="getServiceInfo(scope.row.id)">编辑</el-button>
+          <el-button type="primary" size="small" @click="getUserMoney(scope.row.id)">获取用户价格</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -78,6 +79,21 @@
       this.getService()
     },
     methods: {
+      getUserMoney(id){
+        this.ruleType = {}
+        this.ruleType = {
+          "mobile":{
+            type:'input',
+            label:'手机号',
+            placeholder:'请输入手机号'
+          }
+        }
+        this.ruleForm = {}
+        this.ruleForm.type = 'check'
+        this.ruleForm.business_id = id
+        this.rules = ['mobile']
+        this.cardStatus = true
+      },
       getService(){
         let that = this
         that.$request({
@@ -132,7 +148,33 @@
         this.cardStatus = false
       },
       sumbit(data) {
+        if (data.ruleForm.type === 'check'){
+          this.checkUserPrice(data.ruleForm)
+          return
+        }
         data.ruleForm.id ? this.editService(data.ruleForm) : this.addService(data.ruleForm)
+      },
+      checkUserPrice(data){
+        let that = this
+        that.$request({
+          url:'administrator/getUserEquities',
+          data:data,
+          success(res){
+            if (res.userequities.length > 0) {
+              that.$alert('该用户的该服务价格为'+res.userequities.price, '查询服务价格', {
+                confirmButtonText: '确定',
+                callback: action => {
+                }
+              });
+            } else {
+              that.$alert('未查询到该服务价格', '查询服务价格', {
+                confirmButtonText: '确定',
+                callback: action => {
+                }
+              });
+            }
+          }
+        })
       },
       addService(data) {
         let that = this

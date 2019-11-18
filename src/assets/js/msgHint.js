@@ -183,6 +183,19 @@ let errCollect = {
       3001:'id错误',
       3002:'状态码错误',
       3003:'已审核'
+    },
+    distributionChannel:{
+      3001:'ID错误',
+      3002:'通道id错误',
+      3003:'服务id错误',
+      3005:'没有开通该服务'
+    },
+    updateUserChannel:{
+      3001:'id错误',
+      3003:'非法的优先级'
+    },
+    delUserChannel:{
+      3001:'id错误'
     }
   },
   user:{

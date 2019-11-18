@@ -10,7 +10,7 @@
 
     <!--<v-screen :screen="screenQuery" @query="onQuery" ></v-screen>-->
 
-    <el-table :data="list" border style="width: 100%">
+    <el-table :data="list" border style="width: 99%">
       <el-table-column type="index" label="序号"></el-table-column>
       <el-table-column prop="company_name" label="主办单位（主办人）"></el-table-column>
       <el-table-column prop="company_type" label="主办单位性质"></el-table-column>

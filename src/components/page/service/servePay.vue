@@ -10,7 +10,7 @@
 
     <!--<v-screen :screen="screenQuery" @query="onQuery" ></v-screen>-->
 
-    <el-table :data="list" border style="width: 100%">
+    <el-table :data="list" border style="width: 99%">
       <el-table-column type="index" label="序号"></el-table-column>
       <el-table-column prop="mobile" label="充值手机号"></el-table-column>
       <el-table-column prop="business_text" label="业务服务"></el-table-column>

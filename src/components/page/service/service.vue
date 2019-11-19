@@ -120,26 +120,6 @@
           }
         })
       },
-      goCourier(id) {
-        this.$router.push({
-          path: '/supplier/courier', query: {
-            id: id
-          }
-        })
-      },
-      getsupplierdata(id) {
-        let that = this;
-        that.$request({
-          data: {
-            supplierId: id
-          },
-          url: 'suppliers/getsupplierdata',
-          success(res) {
-            that.ruleForm = res.data
-            that.cardStatus = true
-          }
-        })
-      },
       showCard() {
         this.ruleForm = {}
         this.cardStatus = true
@@ -208,7 +188,7 @@
         this.screen.page = 1;
         localStorage.setItem("supplier", 1)
         this.num++
-        this.getsuppliers();
+        this.getService();
       },
       extend(target, options) {
         for (name in options) {
@@ -219,19 +199,8 @@
       pageChange(obj) {
         this.screen.page = obj.page
         localStorage.setItem("supplier", obj.page)
-        this.getsuppliers()
+        this.getService()
       },
-      getsuppliers() {
-        let that = this;
-        that.$request({
-          data: that.screen,
-          url: 'suppliers/getsuppliers',
-          success(res) {
-            that.suppliersList = res.data
-            that.total = res.totle || 0;
-          }
-        })
-      }
     }
   }
 </script>

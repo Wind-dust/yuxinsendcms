@@ -48,17 +48,26 @@
     name: "accountDetail",
     data() {
       return {
-        id:0,
-        info:{}
+        id: 0,
+        info: {}
       }
     },
     mounted() {
       console.log(this.$route.query)
       this.id = this.$route.query.id
+      this.getInfo()
     },
-    methods:{
-      getInfo(){
-
+    methods: {
+      getInfo() {
+        let that = this
+        let id = this.id
+        that.$request({
+          url: 'User/getUsers',
+          data: {id},
+          success(res) {
+            this.info = that.result
+          }
+        })
       }
     }
   }

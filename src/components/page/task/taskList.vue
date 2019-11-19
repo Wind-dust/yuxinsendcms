@@ -8,8 +8,15 @@
     </div>
 
     <!--<v-screen :screen="screenQuery" @query="onQuery" ></v-screen>-->
-
-    <el-table :data="list" border style="width: 99%">
+    <div class="handle">
+      <div>批量操作：</div>
+      <div>
+        <el-button type="primary" @click="allotAisleMore" size="small">分配通道</el-button>
+        <el-button type="primary" @click="auditTaskMore" size="small">审核</el-button>
+      </div>
+    </div>
+    <el-table :data="list" border style="width: 99%" @selection-change="selectMore">
+      <el-table-column type="selection"></el-table-column>
       <el-table-column type="index" label="序号"></el-table-column>
       <el-table-column show-overflow-tooltip prop="task_name" label="任务名称"></el-table-column>
       <el-table-column show-overflow-tooltip prop="task_content" label="任务内容"></el-table-column>
@@ -18,14 +25,16 @@
       <el-table-column prop="send_num" label="发送数量"></el-table-column>
       <el-table-column prop="task_no" label="任务编号"></el-table-column>
       <el-table-column prop="_free_trial" label="审核状态"></el-table-column>
-      <el-table-column width="290"  label="操作">
+      <el-table-column width="290" label="操作">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="allotAisle(scope.row.id)">分配通道</el-button>
-          <el-button type="primary" size="small" v-if="scope.row.free_trial == 1" @click="auditTask(scope.row.id)">审核</el-button>
+          <el-button type="primary" size="small" @click="getTaskInfo(scope.row.id)">查看</el-button>
+          <el-button type="primary" size="small" v-if="scope.row.free_trial == 1" @click="auditTask(scope.row.id)">审核
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
-    <v-pagination @pageChange="pageChange" :num='num' :total="total" :page="page"></v-pagination>
+    <v-pagination @pageChange="pageChange" :num='num' :total="total" :page-size="pageSize" :page="page"></v-pagination>
 
     <v-card :name='name' width="120" :cardStatus="cardStatus" :ruleType="ruleType" :ruleForm="ruleForm" :rules="rules"
             @sumbit="sumbit" @hideCard="hideCard"></v-card>
@@ -48,13 +57,15 @@
         ruleType: {},
         screen: {
           page: 1,
-          pageNum: 10
+          pageNum: 20
         },
+        pageSize:20,
         page: 1,
         list: [],
         total: 0,
         name: '',
-        serviceOption: []
+        serviceOption: [],
+        selected: []
       }
     },
     components: {
@@ -63,21 +74,53 @@
       vCard
     },
     mounted() {
-      this.screen.page = parseInt(localStorage.getItem("task")) || 142
+      this.screen.page = parseInt(localStorage.getItem("task")) || 1
       this.page = this.screen.page
       this.getTask()
       this.getService()
       this.getAccess()
     },
     methods: {
+      //批量分配通道
+      allotAisleMore() {
+        let selected = this.selected
+        if (selected.length <= 0) {
+          this.$message({message: '请至少选择一项', type: 'error'})
+          return
+        }
+        let ids = ''
+        for (let i = 0; i < selected.length; i++) {
+          ids += selected[i].id + ','
+        }
+        let str = ids.substring(0, ids.lastIndexOf(','))
+        this.allotAisle(str)
+      },
+      //批量审核
+      auditTaskMore() {
+        let selected = this.selected
+        if (selected.length <= 0) {
+          this.$message({message: '请至少选择一项', type: 'error'})
+          return
+        }
+        let ids = ''
+        for (let i = 0; i < selected.length; i++) {
+          ids += selected[i].id + ','
+        }
+        let str = ids.substring(0, ids.lastIndexOf(','))
+        this.auditTask(str)
+      },
+      selectMore(val) {
+        this.selected = val
+      },
+      getTaskInfo(id) {
+        this.$router.push({path: '/task/taskDetail', query: {id: id}})
+      },
       getTask() {
-        console.log(this.screen)
         let that = this
         that.$request({
           url: 'administrator/getUserSendTask',
           data: that.screen,
           success(res) {
-            console.log(res)
             that.ruleForm = {}
             that.list = that.disTask(res.data)
             that.cardStatus = false
@@ -143,19 +186,18 @@
             label: '服务',
             option: option
           },
-          "channel_id":{
-            type:'select',
-            label:'通道',
-            option:access
+          "channel_id": {
+            type: 'select',
+            label: '通道',
+            option: access
           }
         }
         this.ruleForm = {}
         this.ruleForm.id = id
         this.ruleForm.type = 'allot'
-        this.rules = ['business_id','channel_id']
+        this.rules = ['business_id', 'channel_id']
         this.name = '分配通道'
         this.cardStatus = true
-        console.log(this.ruleType)
       },
       getService() {
         let that = this
@@ -187,18 +229,17 @@
         that.$request({
           url: 'administrator/getChannel',
           success(res) {
-            console.log(res)
             that.access = that.disAccess(res.channel_list)
           }
         })
       },
-      disAccess(data){
+      disAccess(data) {
         let json = {},
           arr = []
-        for (let i=0;i<data.length;i++) {
+        for (let i = 0; i < data.length; i++) {
           json = {
-            label:data[i].title,
-            value:data[i].id
+            label: data[i].title,
+            value: data[i].id
           }
           arr.push(json)
         }
@@ -217,15 +258,12 @@
       },
 
       allot(data) {
-        console.log(data)
-        return
         let that = this
         that.$request({
           url: 'administrator/distributionChannel',
           data: data,
           form: 5,
           success(res) {
-            console.log(res)
             that.ruleForm = {}
             that.getTask()
             that.cardStatus = false
@@ -248,9 +286,9 @@
       onQuery(screen) {
         this.extend(this.screen, screen);
         this.screen.page = 1;
-        localStorage.setItem("supplier", 1)
+        localStorage.setItem("task", 1)
         this.num++
-        this.getsuppliers();
+        this.getTask();
       },
       extend(target, options) {
         for (name in options) {
@@ -261,12 +299,28 @@
       pageChange(obj) {
         this.screen.page = obj.page
         localStorage.setItem("task", obj.page)
-        this.getsuppliers()
+        this.getTask()
       }
     }
   }
 </script>
 
 <style scoped>
+  .handle {
+    width: 99%;
+    background: white;
+    border-radius: 2px;
+    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 65px;
+    box-sizing: border-box;
+    border: 1px solid #EBEEF5;
+    font-size: 16px;
+  }
 
+  .handle div:first-child {
+    margin-right: 16px;
+  }
 </style>

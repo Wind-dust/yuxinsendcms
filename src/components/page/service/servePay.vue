@@ -86,7 +86,7 @@
       vCard
     },
     mounted() {
-      this.screen.page = parseInt(localStorage.getItem("supplier")) || 1
+      this.screen.page = parseInt(localStorage.getItem("servePay")) || 1
       this.page = this.screen.page
       this.getService()
       this.getServicePayList()
@@ -219,38 +219,12 @@
         }
         return data
       },
-      addsupplier(data) {
-        let that = this;
-        that.$request({
-          data: data,
-          url: 'suppliers/addsupplier',
-          form: 1,
-          success(res) {
-            that.ruleForm = {}
-            that.getsuppliers()
-            that.cardStatus = false
-          }
-        })
-      },
-      updatesupplier(data) {
-        let that = this;
-        that.$request({
-          data: data,
-          url: 'suppliers/updatesupplier',
-          form: 3,
-          success(res) {
-            that.ruleForm = {}
-            that.getsuppliers()
-            that.cardStatus = false
-          }
-        })
-      },
       onQuery(screen) {
         this.extend(this.screen, screen);
         this.screen.page = 1;
-        localStorage.setItem("supplier", 1)
+        localStorage.setItem("servePay", 1)
         this.num++
-        this.getsuppliers();
+        this.getServicePayList();
       },
       extend(target, options) {
         for (name in options) {
@@ -260,20 +234,9 @@
       },
       pageChange(obj) {
         this.screen.page = obj.page
-        localStorage.setItem("supplier", obj.page)
-        this.getsuppliers()
+        localStorage.setItem("servePay", obj.page)
+        this.getServicePayList()
       },
-      getsuppliers() {
-        let that = this;
-        that.$request({
-          data: that.screen,
-          url: 'suppliers/getsuppliers',
-          success(res) {
-            that.suppliersList = res.data
-            that.total = res.totle || 0;
-          }
-        })
-      }
     }
   }
 </script>

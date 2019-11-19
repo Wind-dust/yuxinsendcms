@@ -16,7 +16,7 @@ export default {
     }
   },
   mounted(){
-    console.log(Server)
+    // console.log(Server)
   },
   methods:{
     addhtml(){

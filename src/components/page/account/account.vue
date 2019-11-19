@@ -25,7 +25,7 @@
       <el-table-column prop="_reservation_service" label="可否预用服务"></el-table-column>
       <el-table-column fixed="right" label="操作" width="350">
         <template slot-scope="scope">
-          <!--<el-button type="primary" size="small" @click="getUserInfoDetail(scope.row.id)">查看</el-button>-->
+          <el-button type="primary" size="small" @click="getUserInfoDetail(scope.row.id)">查看</el-button>
           <el-button type="primary" size="small" @click="setUserInfo(scope.row.id)">设置用户信息</el-button>
           <el-button type="primary" size="small" @click="setUserService(scope.row.id)">设置服务项目</el-button>
         </template>

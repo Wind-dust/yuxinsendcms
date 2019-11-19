@@ -33,6 +33,7 @@ const account = r => require.ensure([], () => r(require('../components/page/acco
 const accountDetail = r => require.ensure([], () => r(require('../components/page/account/accountDetail')), 'accountDetail')
 
 const taskList = r => require.ensure([], () => r(require('../components/page/task/taskList')), 'taskList')
+const taskDetail = r => require.ensure([], () => r(require('../components/page/task/taskDetail')), 'taskDetail')
 
 
 Vue.use(Router)
@@ -93,9 +94,15 @@ export default new Router({
       }, {
         path: '/taskList',
         component: taskList
+      }, {
+        path: '/task/taskDetail',
+        component: taskDetail
       }]
   }, {
     path: '/login',
     component: login
+  },{
+    path:'/article',
+    component:article
   }]
 })

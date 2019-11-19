@@ -23,7 +23,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <v-pagination @pageChange="pageChange" :num='num' :total="total" :page="page"></v-pagination>
+    <v-pagination @pageChange="pageChange" :num='num' :total="total" :page-size="10" :page="page"></v-pagination>
 
     <v-card :name='name' width="120" :cardStatus="cardStatus" :ruleType="ruleType" :ruleForm="ruleForm" :rules="rules"
             @sumbit="sumbit" @hideCard="hideCard"></v-card>

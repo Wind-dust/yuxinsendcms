@@ -31,7 +31,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <v-pagination @pageChange="pageChange" :num='num' :total="total" :page="page"></v-pagination>
+    <v-pagination @pageChange="pageChange" :num='num' :page-size="10" :total="total" :page="page"></v-pagination>
 
     <v-card :name='name' width="120" :cardStatus="cardStatus" :ruleType="ruleType" :ruleForm="ruleForm" :rules="rules"
             @sumbit="sumbit" @hideCard="hideCard"></v-card>
@@ -74,7 +74,7 @@
       vCard
     },
     mounted() {
-      this.screen.page = parseInt(localStorage.getItem("supplier")) || 1
+      this.screen.page = parseInt(localStorage.getItem("account")) || 1
       this.page = this.screen.page
       this.getUser()
     },
@@ -264,7 +264,7 @@
       },
       pageChange(obj) {
         this.screen.page = obj.page
-        localStorage.setItem("supplier", obj.page)
+        localStorage.setItem("account", obj.page)
         this.getUser()
       }
     }

@@ -26,7 +26,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <v-pagination @pageChange="pageChange" :num='num' :total="total" :page="page"></v-pagination>
+    <v-pagination @pageChange="pageChange" :num='num' :total="total" :page-size="10" :page="page"></v-pagination>
 
     <v-card name='审核' width="120" :cardStatus="cardStatus" :ruleType="ruleType" :ruleForm="ruleForm" :rules="rules"
             @sumbit="sumbit" @hideCard="hideCard"></v-card>
@@ -62,7 +62,8 @@
       vCard
     },
     mounted() {
-      this.page = this.screen.page
+      this.screen.page = parseInt(localStorage.getItem("qualification")) || 1
+      this.page = this.screen.page || 1
       this.qualification()
     },
     methods: {
@@ -156,7 +157,7 @@
       },
       pageChange(obj) {
         this.screen.page = obj.page
-        localStorage.setItem("supplier", obj.page)
+        localStorage.setItem("qualification", obj.page)
         this.qualification()
       }
     }

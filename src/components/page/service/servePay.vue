@@ -86,7 +86,7 @@
       vCard
     },
     mounted() {
-      this.screen.page = parseInt(localStorage.getItem("servePay")) || 1
+      this.screen.page = parseInt(localStorage.getItem("servePay")) || 2
       this.page = this.screen.page
       this.getService()
       this.getServicePayList()

@@ -88,9 +88,8 @@
           url: 'User/getUsers',
           data: that.screen,
           success(res) {
-            let result = that.disUserInfo(res.result)
-            that.list = result
-            that.total = res.total || 0
+            that.list = that.disUserInfo(res.result)
+            that.total = res.totle || 0
           }
         })
       },

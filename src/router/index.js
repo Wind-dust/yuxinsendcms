@@ -3,7 +3,8 @@ import Router from 'vue-router';
 
 const routerPush = Router.prototype.push
 Router.prototype.push = function push(location) {
-  return routerPush.call(this, location).catch(error => error)
+  return routerPush.call(this, location)
+    // .catch(error => error)
 }
 
 const Home = r => require.ensure([], () => r(require('../components/common/Home')), 'Home')

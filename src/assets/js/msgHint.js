@@ -143,96 +143,92 @@ let errCollect = {
       3004: '上传文件不能为空'
     }
   },
-  administrator:{
-    updateBusiness:{
-      3001:'id不正确',
-      3002:'服务价格格式错误',
-      3003:'价格不能小于0',
+  administrator: {
+    updateBusiness: {
+      3001: 'id不正确',
+      3002: '服务价格格式错误',
+      3003: '价格不能小于0',
     },
-    aduitRechargeApplication:{
-      3001:'id错误',
-      3002:'状态格式错误',
-      3003:'已审核'
+    aduitRechargeApplication: {
+      3001: 'id错误',
+      3002: '状态格式错误',
+      3003: '已审核'
     },
-    getRechargeApplication:{
-
+    getRechargeApplication: {},
+    rechargeApplication: {
+      3001: '手机号码格式错误',
+      3002: '业务服务不存在',
+      3003: '用户不存在',
+      3004: '该用户没有该服务，无法充值'
     },
-    rechargeApplication:{
-      3001:'手机号码格式错误',
-      3002:'业务服务不存在',
-      3003:'用户不存在',
-      3004:'该用户没有该服务，无法充值'
+    addBusiness: {
+      3001: '标题不能为空',
+      3002: '服务价格错误',
+      3003: '服务价格不能小于0'
     },
-    addBusiness:{
-      3001:'标题不能为空',
-      3002:'服务价格错误',
-      3003:'服务价格不能小于0'
+    getBusiness: {
+      3001: '页码不能为空',
+      3002: '用户不存在'
     },
-    getBusiness:{
-      3001:'页码不能为空',
-      3002:'用户不存在'
+    getUserEquities: {
+      3001: '业务服务错误',
+      3002: '用户不存在'
     },
-    getUserEquities:{
-      3001:'业务服务错误',
-      3002:'用户不存在'
+    getUserQualificationRecord: {
+      3001: 'id错误',
     },
-    getUserQualificationRecord:{
-      3001:'id错误',
+    auditUserQualification: {
+      3001: 'id错误',
+      3002: '状态码错误',
+      3003: '已审核'
     },
-    auditUserQualification:{
-      3001:'id错误',
-      3002:'状态码错误',
-      3003:'已审核'
+    distributionChannel: {
+      3001: 'ID错误',
+      3002: '通道id错误',
+      3003: '服务id错误',
+      3005: '没有开通该服务',
+      3004: '已经分配通道',
+      3006: '已停止服务',
+      3007: '余额不足'
     },
-    distributionChannel:{
-      3001:'ID错误',
-      3002:'通道id错误',
-      3003:'服务id错误',
-      3005:'没有开通该服务',
-      3004:'已经分配通道',
-      3006:'已停止服务',
-      3007:'余额不足'
+    updateUserChannel: {
+      3001: 'id错误',
+      3003: '非法的优先级'
     },
-    updateUserChannel:{
-      3001:'id错误',
-      3003:'非法的优先级'
-    },
-    delUserChannel:{
-      3001:'id错误'
+    delUserChannel: {
+      3001: 'id错误'
     }
   },
-  user:{
-    getUsers:{
-
+  user: {
+    getUsers: {},
+    seetingUser: {
+      3000: '用户不存在',
+      3001: '账户状态错误',
+      3002: '服务码错误',
+      3003: 'udi格式错误'
     },
-    seetingUser:{
-      3000:'用户不存在',
-      3001:'账户状态错误',
-      3002:'服务码错误',
-      3003:'udi格式错误'
-    },
-    seetingUserEquities:{
-      3001:'服务id错误',
-      3002:'代理价格格式错误',
-      3003:'udi格式错误',
-      3004:'代理价格不能低于统一服务价',
-      3005:'该服务已添加',
-      3006:'子账户服务无法设置'
+    seetingUserEquities: {
+      3001: '服务id错误',
+      3002: '代理价格格式错误',
+      3003: 'udi格式错误',
+      3004: '代理价格不能低于统一服务价',
+      3005: '该服务已添加',
+      3006: '子账户服务无法设置'
     }
   },
-  provinces:{
-    getProvinceCity:{
-      3000:'省市区列表为空'
+  provinces: {
+    getProvinceCity: {
+      3000: '省市区列表为空'
     },
-    getArea:{
-      3000:'区列表为空',
-      3001:'市级id不存在',
-      3002:'市级id只能是数字'
+    getArea: {
+      3000: '区列表为空',
+      3001: '市级id不存在',
+      3002: '市级id只能是数字'
     },
-    getCity:{
-      3000:'市列表为空',
-      3001:'省级id不存在',
-      3002:'省级id只能是数字'
+    getCity: {
+      3000: '市列表为空',
+      3001: '省级id不存在',
+      3002: '省级id只能是数字'
     }
   }
 }
@@ -244,7 +240,7 @@ function msgHint(code, url = '') {
   if (errCollect[port[0]] && errCollect[port[0]][port[1]] && errCollect[port[0]][port[1]][code]) {
     text = errCollect[port[0]][port[1]][code]
   } else {
-    text = '意料之外的错误'
+    text = '错误码：' + code
   }
   Message({message: text, type: 'error'});
 }

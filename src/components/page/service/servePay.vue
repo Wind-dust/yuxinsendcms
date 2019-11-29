@@ -47,10 +47,10 @@
         ruleForm: {},
         rules: ['mobile','business_id','num'],
         ruleType: {
-          'mobile': {
+          'nick_name': {
             type: 'input',
-            label: '充值手机号',
-            placeholder: '请输入充值的手机号'
+            label: '充值用户名',
+            placeholder: '请输入充值的用户名'
           },
           'business_id': {
             type: 'select',

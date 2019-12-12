@@ -7,7 +7,7 @@
       </el-breadcrumb>
     </div>
 
-    <!--<v-screen :screen="screenQuery" @query="onQuery" ></v-screen>-->
+    <v-screen :screen="screenQuery" @query="onQuery"></v-screen>
     <div class="handle">
       <div>批量操作：</div>
       <div>
@@ -18,15 +18,22 @@
     <el-table :data="list" border style="width: 99%" @selection-change="selectMore">
       <el-table-column type="selection"></el-table-column>
       <el-table-column type="index" label="序号"></el-table-column>
-      <el-table-column show-overflow-tooltip prop="task_name" label="任务名称"></el-table-column>
-      <el-table-column show-overflow-tooltip prop="task_content" label="任务内容"></el-table-column>
+      <el-table-column show-overflow-tooltip prop="title" label="任务名称"></el-table-column>
+      <el-table-column label="缩略图">
+        <template slot-scope="scope">
+          <img class="thumb" :src="scope.row.content[0].image_path" alt="">
+        </template>
+      </el-table-column>
+      <el-table-column show-overflow-tooltip prop="content[0].content" label="缩略内容"></el-table-column>
       <el-table-column prop="task_no" label="任务编号"></el-table-column>
       <el-table-column prop="_send_status" label="发送状态"></el-table-column>
       <el-table-column prop="send_num" label="发送数量"></el-table-column>
       <el-table-column prop="_free_trial" label="审核状态"></el-table-column>
       <el-table-column width="290" label="操作">
         <template slot-scope="scope">
-          <el-button type="primary" size="small" v-if="scope.row.channel_id === 0" @click="allotAisle(scope.row.id)">分配通道</el-button>
+          <el-button type="primary" size="small" v-if="scope.row.channel_id === 0" @click="allotAisle(scope.row.id)">
+            分配通道
+          </el-button>
           <el-button type="primary" size="small" @click="getTaskInfo(scope.row.id)">查看</el-button>
           <el-button type="primary" size="small" v-if="scope.row.free_trial == 1" @click="auditTask(scope.row.id)">审核
           </el-button>
@@ -37,7 +44,7 @@
 
     <v-card :name='name' width="120" :cardStatus="cardStatus" :ruleType="ruleType" :ruleForm="ruleForm" :rules="rules"
             @sumbit="sumbit" @hideCard="hideCard"></v-card>
-e
+    e
   </div>
 </template>
 
@@ -49,6 +56,12 @@ e
   export default {
     data() {
       return {
+        screenQuery: [{
+          ref: 'title',
+          label: '彩信标题',
+          placeholder: '请输入标题',
+          type: 'input',
+        }],
         num: 1,
         cardStatus: false,
         ruleForm: {},
@@ -58,7 +71,7 @@ e
           page: 1,
           pageNum: 20
         },
-        pageSize:20,
+        pageSize: 20,
         page: 1,
         list: [],
         total: 0,
@@ -73,7 +86,7 @@ e
       vCard
     },
     mounted() {
-      this.screen.page = parseInt(localStorage.getItem("task")) || 1
+      this.screen.page = parseInt(localStorage.getItem("mmstask")) || 1
       this.page = this.screen.page
       this.getTask()
       this.getService()
@@ -112,12 +125,12 @@ e
         this.selected = val
       },
       getTaskInfo(id) {
-        this.$router.push({path: '/task/taskDetail', query: {id: id}})
+        this.$router.push({path: '/mmsTaskDetail', query: {id: id}})
       },
       getTask() {
         let that = this
         that.$request({
-          url: 'administrator/getUserSendTask',
+          url: 'message/getMultimediaMessageTask',
           data: that.screen,
           success(res) {
             that.ruleForm = {}
@@ -285,7 +298,7 @@ e
       onQuery(screen) {
         this.extend(this.screen, screen);
         this.screen.page = 1;
-        localStorage.setItem("task", 1)
+        localStorage.setItem("mmstask", 1)
         this.num++
         this.getTask();
       },
@@ -297,7 +310,7 @@ e
       },
       pageChange(obj) {
         this.screen.page = obj.page
-        localStorage.setItem("task", obj.page)
+        localStorage.setItem("mmstask", obj.page)
         this.getTask()
       }
     }
@@ -321,5 +334,9 @@ e
 
   .handle div:first-child {
     margin-right: 16px;
+  }
+  .thumb{
+    object-fit: contain;
+    max-height: 100px;
   }
 </style>

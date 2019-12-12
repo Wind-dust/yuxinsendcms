@@ -17,7 +17,7 @@
         </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onQuery">查询</el-button>
+          <el-button type="primary" @click="onQuery" size="small">查询</el-button>
         </el-form-item>
       </el-form>
     </el-card>

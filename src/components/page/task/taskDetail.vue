@@ -59,10 +59,12 @@
         })
       },
       disChannel(data){
+        console.log(123)
         let task = this.task
         for (let i=0;i<data.length;i++){
-          if (parseInt(task.channel_id )=== parseInt(data[i].id)) {
+          if (parseInt(task.channel_id ) === parseInt(data[i].id)) {
             this.access = data[i].title
+            console.log(this.access)
           }
         }
       },

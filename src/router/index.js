@@ -4,7 +4,7 @@ import Router from 'vue-router';
 const routerPush = Router.prototype.push
 Router.prototype.push = function push(location) {
   return routerPush.call(this, location)
-    // .catch(error => error)
+  // .catch(error => error)
 }
 
 const Home = r => require.ensure([], () => r(require('../components/common/Home')), 'Home')
@@ -35,6 +35,8 @@ const accountDetail = r => require.ensure([], () => r(require('../components/pag
 
 const taskList = r => require.ensure([], () => r(require('../components/page/task/taskList')), 'taskList')
 const taskDetail = r => require.ensure([], () => r(require('../components/page/task/taskDetail')), 'taskDetail')
+const mmsTaskList = r => require.ensure([], () => r(require('../components/page/task/mmsTaskList')), 'mmsTaskList')
+const mmsTaskDetail = r => require.ensure([], () => r(require('../components/page/task/mmsTaskDetail')), 'mmsTaskDetail')
 
 
 Vue.use(Router)
@@ -98,12 +100,18 @@ export default new Router({
       }, {
         path: '/task/taskDetail',
         component: taskDetail
+      }, {
+        path: '/mmsTaskList',
+        component: mmsTaskList
+      }, {
+        path: '/mmsTaskDetail',
+        component: mmsTaskDetail
       }]
   }, {
     path: '/login',
     component: login
-  },{
-    path:'/article',
-    component:article
+  }, {
+    path: '/article',
+    component: article
   }]
 })

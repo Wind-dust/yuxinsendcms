@@ -18,7 +18,6 @@
     <el-table :data="list" border style="width: 99%" @selection-change="selectMore">
       <el-table-column type="selection"></el-table-column>
       <el-table-column type="index" label="序号"></el-table-column>
-      <el-table-column show-overflow-tooltip prop="task_name" label="任务名称"></el-table-column>
       <el-table-column show-overflow-tooltip prop="task_content" label="任务内容"></el-table-column>
       <el-table-column prop="task_no" label="任务编号"></el-table-column>
       <el-table-column prop="_send_status" label="发送状态"></el-table-column>
@@ -73,7 +72,7 @@
       vCard
     },
     mounted() {
-      this.screen.page = parseInt(localStorage.getItem("task")) || 1
+      this.screen.page = parseInt(localStorage.getItem("busi_task")) || 1
       this.page = this.screen.page
       this.getTask()
       this.getService()
@@ -112,12 +111,12 @@
         this.selected = val
       },
       getTaskInfo(id) {
-        this.$router.push({path: '/task/taskDetail', query: {id: id}})
+        this.$router.push({path: '/task/businessTaskDetail', query: {id: id}})
       },
       getTask() {
         let that = this
         that.$request({
-          url: 'administrator/getUserSendTask',
+          url: 'administrator/getUserSendCodeTask',
           data: that.screen,
           success(res) {
             that.ruleForm = {}
@@ -259,7 +258,7 @@
       allot(data) {
         let that = this
         that.$request({
-          url: 'administrator/distributionChannel',
+          url: 'administrator/distributionCodeTaskChannel',
           data: data,
           form: 5,
           success(res) {
@@ -272,7 +271,7 @@
       audit(data) {
         let that = this
         that.$request({
-          url: 'administrator/auditUserSendTask',
+          url: 'administrator/auditUserSendCodeTask',
           data: data,
           form: 4,
           success(res) {
@@ -285,7 +284,7 @@
       onQuery(screen) {
         this.extend(this.screen, screen);
         this.screen.page = 1;
-        localStorage.setItem("task", 1)
+        localStorage.setItem("busi_task", 1)
         this.num++
         this.getTask();
       },
@@ -297,7 +296,7 @@
       },
       pageChange(obj) {
         this.screen.page = obj.page
-        localStorage.setItem("task", obj.page)
+        localStorage.setItem("busi_task", obj.page)
         this.getTask()
       }
     }

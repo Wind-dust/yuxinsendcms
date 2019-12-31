@@ -15,15 +15,38 @@
         <el-button type="primary" @click="auditTaskMore" size="small">审核</el-button>
       </div>
     </div>
-    <el-table :data="list" border style="width: 99%" @selection-change="selectMore">
+    <el-table @selection-change="selectMore" :data="list" style="width: 100%">
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <el-form label-position="left" inline class="demo-table-expand">
+            <el-form-item label="任务名称：">
+              <span>{{ props.row.task_name }}</span>
+            </el-form-item>
+            <el-form-item label="任务内容：">
+              <span>{{ props.row.task_content }}</span>
+            </el-form-item>
+            <el-form-item label="通道：">
+              <span>{{ props.row.channel_id }}</span>
+            </el-form-item>
+            <el-form-item label="来源：">
+              <span>{{ props.row.source }}</span>
+            </el-form-item>
+            <el-form-item label="手机号：">
+              <span>{{ props.row.mobile_content }}</span>
+            </el-form-item>
+            <el-form-item label="提交时间：">
+              <span>{{ props.row.create_time }}</span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
       <el-table-column type="selection"></el-table-column>
-      <el-table-column type="index" label="序号"></el-table-column>
-      <el-table-column show-overflow-tooltip prop="task_name" label="任务名称"></el-table-column>
-      <el-table-column show-overflow-tooltip prop="task_content" label="任务内容"></el-table-column>
-      <el-table-column prop="task_no" label="任务编号"></el-table-column>
-      <el-table-column prop="_send_status" label="发送状态"></el-table-column>
-      <el-table-column prop="send_num" label="发送数量"></el-table-column>
-      <el-table-column prop="_free_trial" label="审核状态"></el-table-column>
+      <el-table-column label="序号" type="index"></el-table-column>
+      <el-table-column label="任务名称" prop="task_name"></el-table-column>
+      <el-table-column label="任务内容" show-overflow-tooltip prop="task_content"></el-table-column>
+      <el-table-column label="发送数量"  prop="send_num"></el-table-column>
+      <el-table-column label="创建时间" prop="create_time"></el-table-column>
+      <el-table-column label="审核状态" prop="_free_trial"></el-table-column>
       <el-table-column width="290" label="操作">
         <template slot-scope="scope">
           <el-button type="primary" size="small" v-if="scope.row.channel_id === 0" @click="allotAisle(scope.row.id)">分配通道</el-button>
@@ -33,6 +56,7 @@
         </template>
       </el-table-column>
     </el-table>
+
     <v-pagination @pageChange="pageChange" :num='num' :total="total" :page-size="pageSize" :page="page"></v-pagination>
 
     <v-card :name='name' width="120" :cardStatus="cardStatus" :ruleType="ruleType" :ruleForm="ruleForm" :rules="rules"
@@ -322,4 +346,8 @@
   .handle div:first-child {
     margin-right: 16px;
   }
+.el-form-item__label {
+  font-weight: 600!important;
+  color: #777777!important;
+}
 </style>

@@ -45,7 +45,7 @@
         num: 1,
         cardStatus: false,
         ruleForm: {},
-        rules: ['mobile','business_id','num'],
+        rules: ['nick_name','business_id','num'],
         ruleType: {
           'nick_name': {
             type: 'input',
@@ -86,7 +86,7 @@
       vCard
     },
     mounted() {
-      this.screen.page = parseInt(localStorage.getItem("servePay")) || 2
+      this.screen.page = parseInt(localStorage.getItem("servePay")) || 4
       this.page = this.screen.page
       this.getService()
       this.getServicePayList()

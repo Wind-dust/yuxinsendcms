@@ -42,7 +42,7 @@
       </el-table-column>
       <el-table-column type="selection"></el-table-column>
       <el-table-column label="序号" type="index"></el-table-column>
-      <el-table-column label="任务名称" prop="task_name"></el-table-column>
+      <el-table-column label="任务名称" show-overflow-tooltip prop="task_name"></el-table-column>
       <el-table-column label="任务内容" show-overflow-tooltip prop="task_content"></el-table-column>
       <el-table-column label="发送数量"  prop="send_num"></el-table-column>
       <el-table-column label="创建时间" prop="create_time"></el-table-column>

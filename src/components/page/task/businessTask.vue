@@ -43,7 +43,7 @@
       </el-table-column>
       <el-table-column type="selection"></el-table-column>
       <el-table-column label="序号" type="index"></el-table-column>
-      <el-table-column label="任务名称" prop="task_name"></el-table-column>
+      <el-table-column label="任务名称" show-overflow-tooltip prop="task_name"></el-table-column>
       <el-table-column label="任务内容" show-overflow-tooltip prop="task_content"></el-table-column>
       <el-table-column label="发送数量"  prop="send_num"></el-table-column>
       <el-table-column label="发送状态"  prop="_send_status"></el-table-column>
@@ -58,7 +58,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <v-pagination @pageChange="pageChange" :num='num' :total="total" :page-size="pageSize" :page="page"></v-pagination>
 
     <v-card :name='name' width="120" :cardStatus="cardStatus" :ruleType="ruleType" :ruleForm="ruleForm" :rules="rules"

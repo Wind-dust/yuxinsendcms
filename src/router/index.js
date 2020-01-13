@@ -39,6 +39,7 @@ const mmsTaskList = r => require.ensure([], () => r(require('../components/page/
 const mmsTaskDetail = r => require.ensure([], () => r(require('../components/page/task/mmsTaskDetail')), 'mmsTaskDetail')
 const businessTask = r => require.ensure([], () => r(require('../components/page/task/businessTask')), 'businessTask')
 const businessTaskDetail = r => require.ensure([], () => r(require('../components/page/task/businessTaskDetail')), 'businessTaskDetail')
+const tempList = r => require.ensure([], () => r(require('../components/page/tempManager/tempList')), 'tempList')
 
 
 Vue.use(Router)
@@ -114,6 +115,9 @@ export default new Router({
       }, {
         path: '/task/businessTaskDetail',
         component: businessTaskDetail
+      }, {
+        path: '/tempList',
+        component: tempList
       }]
   }, {
     path: '/login',

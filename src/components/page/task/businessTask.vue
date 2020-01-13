@@ -16,39 +16,16 @@
       </div>
     </div>
 
-    <el-table @selection-change="selectMore" :data="list" style="width: 100%">
-      <el-table-column type="expand">
-        <template slot-scope="props">
-          <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="任务名称：">
-              <span>{{ props.row.task_name }}</span>
-            </el-form-item>
-            <el-form-item label="任务内容：">
-              <span>{{ props.row.task_content }}</span>
-            </el-form-item>
-            <el-form-item label="通道：">
-              <span>{{ props.row.channel_id }}</span>
-            </el-form-item>
-            <el-form-item label="来源：">
-              <span>{{ props.row.source }}</span>
-            </el-form-item>
-            <el-form-item label="手机号：">
-              <span>{{ props.row.mobile_content }}</span>
-            </el-form-item>
-            <el-form-item label="提交时间：">
-              <span>{{ props.row.create_time }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
+    <el-table @selection-change="selectMore" :data="list" style="width: 99%" border>
       <el-table-column type="selection"></el-table-column>
       <el-table-column label="序号" type="index"></el-table-column>
       <el-table-column label="任务名称" show-overflow-tooltip prop="task_name"></el-table-column>
-      <el-table-column label="任务内容" show-overflow-tooltip prop="task_content"></el-table-column>
+      <el-table-column label="任务内容" width="438" prop="task_content"></el-table-column>
       <el-table-column label="发送数量"  prop="send_num"></el-table-column>
-      <el-table-column label="发送状态"  prop="_send_status"></el-table-column>
       <el-table-column label="创建时间" prop="create_time"></el-table-column>
       <el-table-column label="审核状态" prop="_free_trial"></el-table-column>
+      <el-table-column label="回执时间" prop=""></el-table-column>
+      <el-table-column label="回执状态" prop=""></el-table-column>
       <el-table-column width="290" label="操作">
         <template slot-scope="scope">
           <el-button type="primary" size="small" v-if="scope.row.channel_id === 0" @click="allotAisle(scope.row.id)">分配通道</el-button>
@@ -82,9 +59,9 @@
         ruleType: {},
         screen: {
           page: 1,
-          pageNum: 20
+          pageNum: 30
         },
-        pageSize:20,
+        pageSize:30,
         page: 1,
         list: [],
         total: 0,

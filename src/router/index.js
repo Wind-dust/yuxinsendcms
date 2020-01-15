@@ -41,7 +41,7 @@ const businessTask = r => require.ensure([], () => r(require('../components/page
 const businessTaskDetail = r => require.ensure([], () => r(require('../components/page/task/businessTaskDetail')), 'businessTaskDetail')
 const tempList = r => require.ensure([], () => r(require('../components/page/tempManager/tempList')), 'tempList')
 
-
+const signature = r => require.ensure([], () => r(require('../components/page/signatureManager/signatureList')), 'signatureList')
 Vue.use(Router)
 
 export default new Router({
@@ -118,6 +118,9 @@ export default new Router({
       }, {
         path: '/tempList',
         component: tempList
+      }, {
+        path: '/signature',
+        component: signature
       }]
   }, {
     path: '/login',

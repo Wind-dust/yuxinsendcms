@@ -23,11 +23,12 @@
       <el-table-column prop="email" label="email"></el-table-column>
       <el-table-column prop="_user_status" label="账户服务状态"></el-table-column>
       <el-table-column prop="_reservation_service" label="可否预用服务"></el-table-column>
-      <el-table-column fixed="right" label="操作" width="350">
+      <el-table-column fixed="right" label="操作" width="450">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="getUserInfoDetail(scope.row.id)">查看</el-button>
           <el-button type="primary" size="small" @click="setUserInfo(scope.row.id)">设置用户信息</el-button>
           <el-button type="primary" size="small" @click="setUserService(scope.row.id)">设置服务项目</el-button>
+          <el-button type="primary" size="small" @click="kzCode(scope.row.nick_name)">扩展码</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -35,6 +36,30 @@
 
     <v-card :name='name' width="120" :cardStatus="cardStatus" :ruleType="ruleType" :ruleForm="ruleForm" :rules="rules"
             @sumbit="sumbit" @hideCard="hideCard"></v-card>
+    <el-dialog title="绑定扩展码" :visible.sync="dialogVisible" width="30%"  center>
+        <el-form prop="form">
+          <el-form-item label="扩展码：" :rules="[{required:true,message:'请输入扩展码',trigger:'blur'}]">
+            <el-input v-model="code" style="width: 30%;" placeholder="请输入扩展码"></el-input>
+            <el-button type="primary" size="small" @click="checkedCode">是否已绑定</el-button>
+          </el-form-item>
+          <el-form-item label="随机抽取："  :rules="[{required:true,message:'请输入扩展码长度',trigger:'blur'}]">
+            <el-input v-model="codeLength" style="width: 30%;" placeholder="扩展码长度（可选）" ></el-input>
+            <el-button type="primary" size="small" @click="suiji">随机</el-button>
+          </el-form-item>
+          <el-form-item label="服务："  :rules="[{required:true,message:'请选择服务',trigger:'change'}]">
+            <el-select v-model="business_id">
+              <el-option v-for="(v,k) in business" :key="k" :value="v.value" :label="v.label"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="服务范围：" :rules="[{required:true,message:'请选择服务',trigger:'change'}]">
+            <el-select v-model="source">
+              <el-option v-for="(v,k) in sourceList" :key="k" :value="v.value" :label="v.label"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+      <el-button @click="dialogVisible = false" size="small">取 消</el-button>
+      <el-button type="primary" @click="createCode" size="small">确 定</el-button>
+    </el-dialog>
 
   </div>
 </template>
@@ -47,6 +72,32 @@
   export default {
     data() {
       return {
+        form:{
+          code:'',
+          codeLength:''
+        },
+        sourceList:[{
+          label:'移动',
+          value:1
+        },{
+          label:'联通',
+          value:2
+        },{
+          label:"电信",
+          value:3
+        },{
+          label:'三网',
+          value:4
+        },{
+          label:'移动电信',
+          value:5
+        },{
+          label:'移动联通',
+          value:6
+        },{
+          label:'联通电信',
+          value:7
+        }],
         num: 1,
         name: '',
         cardStatus: false,
@@ -65,7 +116,16 @@
           type: 'input',
         }],
         list: [],
-        total: 0
+        total: 0,
+        dialogVisible:false,
+        code:'',
+        id:0,
+        codeLength:'',
+        business:[],
+        business_id:'',
+        checkList:[],
+        source:'',
+        nick_name:''
       }
     },
     components: {
@@ -79,6 +139,57 @@
       this.getUser()
     },
     methods: {
+      checkedCode(){
+        let that = this
+        that.$request({
+          url:'message/verifyDevelopCode',
+          data:{
+            develop_no:that.code
+          },
+          success(res){
+              if(res.code == 200){
+                that.$message.error('该扩展码已绑定')
+              } else if(res.code == 3002) {
+                that.$message.success('该扩展码可用')
+              }
+          }
+        })
+      },
+      suiji(){
+        let that = this
+        that.$request({
+          url:'message/getOneRandomDevelopCode',
+          data:{
+            no_lenth:parseInt(that.codeLength)
+          },
+          success(e){
+              if (e.code == 200){
+                that.code = e.develop_no
+              }
+          }
+        })
+      },
+      createCode(){
+        let that = this
+        that.$request({
+          url:'message/userBindDevelopCode',
+          data:{
+            develop_no: that.code,
+            business_id:that.business_id,
+            source:that.source,
+            nick_name:that.nick_name
+          },
+          success(res) {
+            that.$message.success('绑定成功')
+            that.dialogVisible = false
+          }
+        })
+      },
+      kzCode(name) {
+        this.nick_name = name
+        this.dialogVisible = true
+        this.getService(1)
+      },
       getUserInfoDetail(id) {
         this.$router.push({path: '/accountDetail', query: {id: id}})
       },
@@ -186,7 +297,7 @@
         this.rules = ['business_id']
         this.getService()
       },
-      getService() {
+      getService(type ='') {
         let that = this
         that.$request({
           url: 'administrator/getBusiness',
@@ -194,18 +305,22 @@
             getall: 1
           },
           success(res) {
-            that.disBusiness(res.Business)
+            that.disBusiness(res.Business,type)
           }
         })
       },
-      disBusiness(data) {
+      disBusiness(data,type) {
         let json = {}
         for (let i = 0; i < data.length; i++) {
           json = {
             label: data[i].title,
             value: data[i].id
           }
-          this.ruleType.business_id.option.push(json)
+          if (type == 1){
+            this.business.push(json)
+          } else {
+            this.ruleType.business_id.option.push(json)
+          }
         }
       },
       showCard() {

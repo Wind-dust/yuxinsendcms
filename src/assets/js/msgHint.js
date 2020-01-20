@@ -230,6 +230,35 @@ let errCollect = {
       3001: '省级id不存在',
       3002: '省级id只能是数字'
     }
+  },
+  message:{
+    userBindDevelopCode:{
+      3001:'扩展码错误',
+      3002:'服务范围错误',
+      3003:'用户不存在或已停用',
+      3004:'扩展码不存在',
+      3005:'扩展码已被绑定',
+      3006:'已绑定',
+      3007:'拓展码异常'
+    },
+    getuserBindDevelopCode:{
+      3001:'拓展码错误'
+    },
+    getDevelopCode:{
+      3001:'状态码长度或查取范围错误',
+      3002:'绑定状态码错误'
+    },
+    deluserBindDevelopCode:{
+      3001:'绑定关系id错误'
+    },
+    getOneRandomDevelopCode:{
+      3001:'扩展码长度或查取范围错误',
+      3002:'该号段已无空余扩展码'
+    },
+    verifyDevelopCode:{
+      3001:'扩展码或查取范围错误',
+      3002:'该扩展码已被绑定'
+    }
   }
 }
 

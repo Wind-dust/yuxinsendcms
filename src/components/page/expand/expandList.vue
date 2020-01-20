@@ -24,9 +24,6 @@
       </el-table-column>
     </el-table>
     <v-pagination @pageChange="pageChange" :num='num' :page-size="10" :total="total" :page="page"></v-pagination>
-
-    <v-card :name='name' width="120" :cardStatus="cardStatus" :ruleType="ruleType" :ruleForm="ruleForm" :rules="rules"
-            @sumbit="sumbit" @hideCard="hideCard"></v-card>
     <el-dialog title="绑定列表" :visible.sync="dialogVisible" width="30%" center>
       <el-table :data="relationList" border style="width: 100%">
         <el-table-column prop="nick_name" label="用户名"></el-table-column>
@@ -54,20 +51,31 @@
       return {
         num: 1,
         name: '',
-        cardStatus: false,
-        ruleForm: {},
-        rules: [],
-        ruleType: {},
         screen: {
           page: 1,
           pagenum: 10
         },
         page: 1,
         screenQuery: [{
-          ref: 'mobile',
-          label: '手机号',
-          placeholder: '请输入手机号',
+          ref: 'no_lenth',
+          label: '扩展码长度',
+          placeholder: '请输入',
           type: 'input',
+        },{
+          ref:'develop_no',
+          label:'扩展码',
+          type:'input'
+        },{
+          ref:'is_bind',
+          label:'是否绑定',
+          type:'select',
+          option:[{
+            label:'未绑定',
+            value:1
+          },{
+            label:'已绑定',
+            value:2
+          }]
         }],
         list: [],
         total: 0,

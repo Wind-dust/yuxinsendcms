@@ -148,9 +148,7 @@
           },
           success(res){
               if(res.code == 200){
-                that.$message.error('该扩展码已绑定')
-              } else if(res.code == 3002) {
-                that.$message.success('该扩展码可用')
+                that.$message.error('该扩展码可用')
               }
           }
         })

@@ -24,7 +24,7 @@
           <img class="thumb" :src="scope.row.content[0].image_path" alt="">
         </template>
       </el-table-column>
-      <el-table-column show-overflow-tooltip prop="content[0].content" label="缩略内容"></el-table-column>
+      <el-table-column :width="500" prop="content[0].content" label="缩略内容"></el-table-column>
       <el-table-column prop="task_no" label="任务编号"></el-table-column>
       <el-table-column prop="_send_status" label="发送状态"></el-table-column>
       <el-table-column prop="send_num" label="发送数量"></el-table-column>
@@ -273,7 +273,7 @@
       allot(data) {
         let that = this
         that.$request({
-          url: 'administrator/distributionChannel',
+          url: 'message/distributionMultimediaChannel',
           data: data,
           form: 5,
           success(res) {
@@ -286,7 +286,7 @@
       audit(data) {
         let that = this
         that.$request({
-          url: 'administrator/auditUserSendTask',
+          url: 'message/auditMultimediaMessageTask',
           data: data,
           form: 4,
           success(res) {

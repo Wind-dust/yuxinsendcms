@@ -15,7 +15,7 @@
         <el-button type="primary" @click="auditTaskMore" size="small">审核</el-button>
       </div>
     </div>
-    <el-table :data="list" border style="width: 99%" @selection-change="selectMore">
+    <el-table :data="list" border style="width: 100%" @selection-change="selectMore">
       <el-table-column type="selection"></el-table-column>
       <el-table-column type="index" label="序号"></el-table-column>
       <el-table-column show-overflow-tooltip prop="title" label="任务名称"></el-table-column>
@@ -24,7 +24,7 @@
           <img class="thumb" :src="scope.row.content[0].image_path" alt="">
         </template>
       </el-table-column>
-      <el-table-column :width="500" prop="content[0].content" label="缩略内容"></el-table-column>
+      <el-table-column :width="300" prop="content[0].content" label="缩略内容"></el-table-column>
       <el-table-column prop="task_no" label="任务编号"></el-table-column>
       <el-table-column prop="_send_status" label="发送状态"></el-table-column>
       <el-table-column prop="send_num" label="发送数量"></el-table-column>
@@ -70,7 +70,7 @@
         ruleType: {},
         screen: {
           page: 1,
-          pageNum: 20
+          pageNum: 30
         },
         pageSize: 20,
         page: 1,
@@ -320,7 +320,7 @@
 
 <style scoped>
   .handle {
-    width: 99%;
+    width: 100%;
     background: white;
     border-radius: 2px;
     height: 50px;

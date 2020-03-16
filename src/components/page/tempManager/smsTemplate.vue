@@ -12,9 +12,13 @@
       <el-table-column label="序号" type="index"></el-table-column>
       <el-table-column label="模板ID" prop="template_id"></el-table-column>
       <el-table-column label="模板名称" show-overflow-tooltip prop="title"></el-table-column>
-      <el-table-column label="模板内容" width="438" prop="content"></el-table-column>
+      <el-table-column label="图片">
+        <template slot-scope="scope">
+          <img style="object-fit: contain;max-height: 100px;" :src="scope.row.multimedia_frame[0].image_path" alt="">
+        </template>
+      </el-table-column>
+      <el-table-column label="模板内容" width="338" prop="multimedia_frame[0].content"></el-table-column>
       <el-table-column label="提交账号"  prop="uid"></el-table-column>
-      <el-table-column label="产品类型"  prop="business_id"></el-table-column>
       <el-table-column label="状态"  prop="_status"></el-table-column>
       <el-table-column label="创建时间" prop="create_time"></el-table-column>
       <el-table-column width="290" label="操作">
@@ -77,7 +81,7 @@
       getTemp() {
         let that = this
         that.$request({
-          url: 'message/getUserModel',
+          url: 'message/getUserMultimediaTemplate',
           data: that.screen,
           success(res) {
             that.ruleForm = {}
@@ -114,9 +118,9 @@
             type: 'select',
             label: '审核状态',
             option: [
-              {value: 3, label: '通过'},
-              {value: 4, label: '不通过'},
-              {value: 5, label: '停用'}
+              {value: 2, label: '通过'},
+              {value: 3, label: '不通过'},
+              // {value: 5, label: '停用'}
             ]
           },
         }
@@ -141,7 +145,7 @@
       audit(data) {
         let that = this
         that.$request({
-          url: 'message/auditUserModel',
+          url: 'message/auditUserMultimediaTemplatel',
           data: data,
           form: 4,
           success(res) {

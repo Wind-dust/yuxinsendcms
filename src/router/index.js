@@ -43,6 +43,7 @@ const tempList = r => require.ensure([], () => r(require('../components/page/tem
 
 const signature = r => require.ensure([], () => r(require('../components/page/signatureManager/signatureList')), 'signatureList')
 const expand = r => require.ensure([], () => r(require('../components/page/expand/expandList')), 'expandList')
+const smsTemplate = r => require.ensure([], () => r(require('../components/page/tempManager/smsTemplate')), 'smsTemplate')
 
 Vue.use(Router)
 
@@ -126,6 +127,9 @@ export default new Router({
       }, {
         path: '/expand',
         component: expand
+      }, {
+        path: '/smsTemplate',
+        component: smsTemplate
       }]
   }, {
     path: '/login',

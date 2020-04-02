@@ -8,6 +8,7 @@
     </div>
 
     <!--<v-screen :screen="screenQuery" @query="onQuery" ></v-screen>-->
+    <v-pagination @pageChange="pageChange" :num='num' :total="total" :page-size="pageSize" :page="page"></v-pagination>
     <div class="handle">
       <div>批量操作：</div>
       <div>
@@ -35,7 +36,6 @@
         </template>
       </el-table-column>
     </el-table>
-
     <v-pagination @pageChange="pageChange" :num='num' :total="total" :page-size="pageSize" :page="page"></v-pagination>
 
     <v-card :name='name' width="120" :cardStatus="cardStatus" :ruleType="ruleType" :ruleForm="ruleForm" :rules="rules"

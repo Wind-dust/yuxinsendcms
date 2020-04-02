@@ -268,6 +268,39 @@
                 label: '不需要审核'
               }
             ]
+          },
+          'need_upriver_api':{
+            type:'select',
+            label:'是否调用上行',
+            option:[{
+              value:1,
+              label:'否'
+            },{
+              value:2,
+              label:'是'
+            }]
+          },
+          'need_receipt_api': {
+            type:'select',
+            label:'是否调用回执',
+            option:[{
+              value:1,
+              label:'否',
+            },{
+              value:2,
+              label:'是'
+            }]
+          },
+          'need_receipt_info':{
+            type:'select',
+            label:'是否开放状态信息',
+            option:[{
+              value:1,
+              label:'否'
+            },{
+              value:2,
+              label:'是'
+            }]
           }
         }
         this.ruleForm.type = 1

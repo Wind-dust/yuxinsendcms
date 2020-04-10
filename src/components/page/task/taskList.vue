@@ -159,7 +159,7 @@
               data[i]._free_trial = '不通过';
               break;
           }
-          data[i]._appointment_time = data[i].appointment_time ? format(data[i].appointment_time) : '-----000'
+          data[i]._appointment_time = data[i].appointment_time ? format(data[i].appointment_time) : '-----'
         }
         return data
       },

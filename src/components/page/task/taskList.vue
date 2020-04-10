@@ -27,6 +27,7 @@
       <el-table-column label="发送状态"  prop="_send_status"></el-table-column>
       <el-table-column label="审核状态" prop="_free_trial"></el-table-column>
       <el-table-column label="创建时间" prop="create_time"></el-table-column>
+      <el-table-column label="定时时间" prop="_appointment_time"></el-table-column>
       <el-table-column width="290" label="操作">
         <template slot-scope="scope">
           <el-button type="primary" size="small" v-if="(scope.row.yidong_channel_id === 0 || scope.row.dianxin_channel_id === 0 || scope.row.liantong_channel_id === 0)&& parseInt(scope.row.free_trial) === 2" @click="allotAisle(scope.row.id)">分配通道</el-button>
@@ -48,6 +49,7 @@
   import vScreen from '../../component/screen'
   import vPagination from '../../component/pagination'
   import vCard from '../../component/card'
+  import {format} from '../../../assets/js/formdate'
 
   export default {
     data() {
@@ -157,6 +159,7 @@
               data[i]._free_trial = '不通过';
               break;
           }
+          data[i]._appointment_time = data[i].appointment_time ? format(data[i].appointment_time) : '-----000'
         }
         return data
       },

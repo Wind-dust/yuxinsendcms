@@ -29,6 +29,7 @@
       <el-table-column prop="_send_status" label="发送状态"></el-table-column>
       <el-table-column prop="send_num" label="发送数量"></el-table-column>
       <el-table-column prop="_free_trial" label="审核状态"></el-table-column>
+      <el-table-column label="发送时间"  prop="update_time"></el-table-column>
       <el-table-column prop="create_time" label="提交时间"></el-table-column>
       <el-table-column width="290" label="操作">
         <template slot-scope="scope">

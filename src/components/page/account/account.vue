@@ -258,7 +258,33 @@
           },
           "free_trial": {
             type: 'select',
-            label: '短信发送审核',
+            label: '行业短信审核',
+            option: [
+              {
+                value: 1,
+                label: '需要审核'
+              }, {
+                value: 2,
+                label: '不需要审核'
+              }
+            ]
+          },
+          "marketing_free_trial": {
+            type: 'select',
+            label: '营销短信审核',
+            option: [
+              {
+                value: 1,
+                label: '需要审核'
+              }, {
+                value: 2,
+                label: '不需要审核'
+              }
+            ]
+          },
+          "mul_free_trial": {
+            type: 'select',
+            label: '图文彩信审核',
             option: [
               {
                 value: 1,

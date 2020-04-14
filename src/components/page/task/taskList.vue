@@ -21,14 +21,14 @@
       <el-table-column type="selection"></el-table-column>
       <el-table-column label="序号" type="index"></el-table-column>
       <el-table-column label="任务名称" show-overflow-tooltip prop="task_name"></el-table-column>
-      <el-table-column label="任务内容" width="438" prop="task_content"></el-table-column>
+      <el-table-column label="任务内容" width="408" prop="task_content"></el-table-column>
       <el-table-column label="发送数量"  prop="send_num"></el-table-column>
       <el-table-column label="发送时间"  prop="update_time"></el-table-column>
       <el-table-column label="发送状态"  prop="_send_status"></el-table-column>
       <el-table-column label="审核状态" prop="_free_trial"></el-table-column>
       <el-table-column label="创建时间" prop="create_time"></el-table-column>
       <el-table-column label="定时时间" prop="_appointment_time"></el-table-column>
-      <el-table-column width="290" label="操作">
+      <el-table-column  label="操作">
         <template slot-scope="scope">
           <el-button type="primary" size="small" v-if="(scope.row.yidong_channel_id === 0 || scope.row.dianxin_channel_id === 0 || scope.row.liantong_channel_id === 0)&& parseInt(scope.row.free_trial) === 2" @click="allotAisle(scope.row.id)">分配通道</el-button>
           <el-button type="primary" size="small" @click="getTaskInfo(scope.row.id)">查看</el-button>

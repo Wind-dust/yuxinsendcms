@@ -21,7 +21,7 @@
       <el-table-column type="selection"></el-table-column>
       <el-table-column label="序号" type="index"></el-table-column>
       <el-table-column label="任务名称" show-overflow-tooltip prop="task_name"></el-table-column>
-      <el-table-column label="任务内容" width="408" prop="task_content"></el-table-column>
+      <el-table-column label="任务内容" width="368" prop="task_content"></el-table-column>
       <el-table-column label="发送数量"  prop="send_num"></el-table-column>
       <el-table-column label="发送时间"  prop="update_time"></el-table-column>
       <el-table-column label="发送状态"  prop="_send_status"></el-table-column>
@@ -194,17 +194,20 @@
           "yidong_channel_id": {
             type: 'select',
             label: '移动通道',
-            option: access
+            option: access,
+            filterable:true
           },
           "liantong_channel_id":{
             type:'select',
             label:'联通通道',
-            option:access
+            option:access,
+            filterable:true
           },
           "dianxin_channel_id":{
             type:'select',
             label:'电信通道',
-            option:access
+            option:access,
+            filterable:true
           }
         }
         this.ruleForm = {}

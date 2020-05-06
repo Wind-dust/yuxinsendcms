@@ -191,7 +191,8 @@
           "channel_id": {
             type: 'select',
             label: '通道',
-            option: access
+            option: access,
+            filterable:true
           }
         }
         this.ruleForm = {}

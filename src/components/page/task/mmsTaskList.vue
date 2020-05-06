@@ -45,7 +45,7 @@
     <v-pagination @pageChange="pageChange" :num='num' :total="total" :page-size="pageSize" :page="page"></v-pagination>
 
     <v-card :name='name' width="120" :cardStatus="cardStatus" :ruleType="ruleType" :ruleForm="ruleForm" :rules="rules"
-            @sumbit="sumbit" @hideCard="hideCard"></v-card>
+            @sumbit="sumbit" @hideCard="hideCard" :isFilterable="true" ></v-card>
 
   </div>
 </template>
@@ -73,7 +73,7 @@
           page: 1,
           pageNum: 30
         },
-        pageSize: 20,
+        pageSize: 30,
         page: 1,
         list: [],
         total: 0,
@@ -200,10 +200,23 @@
             label: '服务',
             option: option
           },
-          "channel_id": {
+          "yidong_channel_id": {
             type: 'select',
-            label: '通道',
-            option: access
+            label: '移动通道',
+            option: access,
+            filterable:true
+          },
+          "liantong_channel_id":{
+            type:'select',
+            label:'联通通道',
+            option:access,
+            filterable:true
+          },
+          "dianxin_channel_id":{
+            type:'select',
+            label:'电信通道',
+            option:access,
+            filterable:true
           }
         }
         this.ruleForm = {}

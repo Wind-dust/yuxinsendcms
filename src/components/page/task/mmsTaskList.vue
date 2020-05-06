@@ -33,9 +33,10 @@
       <el-table-column prop="create_time" label="提交时间"></el-table-column>
       <el-table-column width="290" label="操作">
         <template slot-scope="scope">
-          <el-button type="primary" size="small" v-if="scope.row.channel_id === 0" @click="allotAisle(scope.row.id)">
-            分配通道
-          </el-button>
+          <!--<el-button type="primary" size="small" v-if="scope.row.channel_id === 0" @click="allotAisle(scope.row.id)">-->
+            <!--分配通道-->
+          <!--</el-button>-->
+          <el-button type="primary" size="small" v-if="(scope.row.yidong_channel_id === 0 || scope.row.dianxin_channel_id === 0 || scope.row.liantong_channel_id === 0)&& parseInt(scope.row.free_trial) === 2" @click="allotAisle(scope.row.id)">分配通道</el-button>
           <el-button type="primary" size="small" @click="getTaskInfo(scope.row.id)">查看</el-button>
           <el-button type="primary" size="small" v-if="scope.row.free_trial == 1" @click="auditTask(scope.row.id)">审核
           </el-button>

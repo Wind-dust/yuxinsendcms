@@ -70,7 +70,7 @@
       vCard
     },
     mounted() {
-      this.screen.page = parseInt(localStorage.getItem("temp")) || 1
+      this.screen.page = parseInt(localStorage.getItem("smstemp")) || 1
       this.page = this.screen.page
       this.getTemp()
     },
@@ -87,7 +87,7 @@
             that.ruleForm = {}
             that.list = that.distemp(res.result)
             that.cardStatus = false
-            that.total = res.total
+            that.total = res.totle
           }
         })
       },
@@ -158,7 +158,7 @@
       onQuery(screen) {
         this.extend(this.screen, screen);
         this.screen.page = 1;
-        localStorage.setItem("temp", 1)
+        localStorage.setItem("smstemp", 1)
         this.num++
         this.getTemp();
       },
@@ -170,7 +170,7 @@
       },
       pageChange(obj) {
         this.screen.page = obj.page
-        localStorage.setItem("temp", obj.page)
+        localStorage.setItem("smstemp", obj.page)
         this.getTemp()
       }
     }

@@ -83,7 +83,7 @@
             that.ruleForm = {}
             that.list = that.distemp(res.result)
             that.cardStatus = false
-            that.total = res.total
+            that.total = res.totle
           }
         })
       },

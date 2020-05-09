@@ -10,7 +10,9 @@
           <el-form-item label="任务名称:"><span class="text">{{task.task_name}}</span></el-form-item>
           <el-form-item label="任务内容:"><span>{{task.task_content}}</span></el-form-item>
           <el-form-item label="任务编号:"><span>{{task.task_no}}</span></el-form-item>
-          <el-form-item label="通道:"><span>{{access}}</span></el-form-item>
+          <el-form-item label="移动通道:"><span>{{yidong_access}}</span></el-form-item>
+          <el-form-item label="联通通道:"><span>{{liantong_access}}</span></el-form-item>
+          <el-form-item label="电信通道:"><span>{{dianxin_access}}</span></el-form-item>
           <el-form-item label="来源:"><span>{{task.source}}</span></el-form-item>
           <el-form-item label="发送状态:" v-if="task.send_status == 1"><span>待发送</span></el-form-item>
           <el-form-item label="发送状态:" v-if="task.send_status == 2"><span>发送中</span></el-form-item>
@@ -36,7 +38,10 @@
         id: '',
         task: {},
         access:'',
-        zan:false
+        zan:false,
+        yidong_access:'',
+        liantong_access:'',
+        dianxin_access:''
       }
     },
     mounted() {
@@ -62,8 +67,16 @@
         console.log(123)
         let task = this.task
         for (let i=0;i<data.length;i++){
-          if (parseInt(task.channel_id ) === parseInt(data[i].id)) {
-            this.access = data[i].title
+          if (parseInt(task.yidong_channel_id) === parseInt(data[i].id)) {
+            this.yidong_access = data[i].title
+            console.log(this.access)
+          }
+          if (parseInt(task.liantong_channel_id) === parseInt(data[i].id)) {
+            this.liantong_access = data[i].title
+            console.log(this.access)
+          }
+          if (parseInt(task.dianxin_channel_id) === parseInt(data[i].id)) {
+            this.dianxin_access = data[i].title
             console.log(this.access)
           }
         }

@@ -28,7 +28,7 @@
       <el-table-column label="回执状态" prop=""></el-table-column>
       <el-table-column width="290" label="操作">
         <template slot-scope="scope">
-          <el-button type="primary" size="small" v-if="scope.row.channel_id === 0" @click="allotAisle(scope.row.id)">分配通道</el-button>
+          <el-button type="primary" size="small" v-if="(scope.row.yidong_channel_id === 0 || scope.row.dianxin_channel_id === 0 || scope.row.liantong_channel_id === 0)&& parseInt(scope.row.free_trial) === 2" @click="allotAisle(scope.row.id)">分配通道</el-button>
           <el-button type="primary" size="small" @click="getTaskInfo(scope.row.id)">查看</el-button>
           <el-button type="primary" size="small" v-if="scope.row.free_trial == 1" @click="auditTask(scope.row.id)">审核
           </el-button>
@@ -188,10 +188,22 @@
             label: '服务',
             option: option
           },
-          "channel_id": {
+          "yidong_channel_id": {
             type: 'select',
-            label: '通道',
+            label: '移动通道',
             option: access,
+            filterable:true
+          },
+          "liantong_channel_id":{
+            type:'select',
+            label:'联通通道',
+            option:access,
+            filterable:true
+          },
+          "dianxin_channel_id":{
+            type:'select',
+            label:'电信通道',
+            option:access,
             filterable:true
           }
         }

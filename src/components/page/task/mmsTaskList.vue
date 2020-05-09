@@ -31,6 +31,7 @@
       <el-table-column prop="_free_trial" label="审核状态"></el-table-column>
       <el-table-column label="发送时间"  prop="update_time"></el-table-column>
       <el-table-column prop="create_time" label="提交时间"></el-table-column>
+      <el-table-column prop="_appointment_time" label="定时时间"></el-table-column>
       <el-table-column width="290" label="操作">
         <template slot-scope="scope">
           <!--<el-button type="primary" size="small" v-if="scope.row.channel_id === 0" @click="allotAisle(scope.row.id)">-->
@@ -170,6 +171,7 @@
               data[i]._free_trial = '不通过';
               break;
           }
+          data[i]._appointment_time = data[i].appointment_time ? format(data[i].appointment_time) : '-----'
         }
         return data
       },

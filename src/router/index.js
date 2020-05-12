@@ -44,6 +44,10 @@ const tempList = r => require.ensure([], () => r(require('../components/page/tem
 const signature = r => require.ensure([], () => r(require('../components/page/signatureManager/signatureList')), 'signatureList')
 const expand = r => require.ensure([], () => r(require('../components/page/expand/expandList')), 'expandList')
 const smsTemplate = r => require.ensure([], () => r(require('../components/page/tempManager/smsTemplate')), 'smsTemplate')
+const sflmms = r => require.ensure([], () => r(require('../components/page/sfl/sflmms')), 'sflmms')
+const sfltask = r => require.ensure([], () => r(require('../components/page/sfl/sflTask')), 'sfltask')
+const sflmmsdetail = r => require.ensure([], () => r(require('../components/page/sfl/sflmmsdetail')), 'sflmmsdetail')
+const sfltaskdetail = r => require.ensure([],()=>r(require('../components/page/sfl/sfltaskdetail')),'sfltaskdetail')
 
 Vue.use(Router)
 
@@ -130,6 +134,18 @@ export default new Router({
       }, {
         path: '/smsTemplate',
         component: smsTemplate
+      }, {
+        path: '/sflmms',
+        component: sflmms
+      }, {
+        path: '/sfltask',
+        component: sfltask
+      }, {
+        path: '/sflmmsdetail',
+        component: sflmmsdetail
+      },{
+      path:'/sfltaskdetail',
+        component:sfltaskdetail
       }]
   }, {
     path: '/login',

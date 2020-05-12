@@ -6,7 +6,7 @@
       </div>
       <el-form :inline="true" class="demo-form-inline">
         <el-form-item v-for="(v,k) in screen" :key="k" :label="v.label">
-          <el-input v-if="v.type == 'input'" v-model="v.content" :placeholder="v.placeholder"></el-input>
+          <el-input v-if="v.type == 'input'" v-model="v.content" :placeholder="v.placeholder || '请输入'"></el-input>
 
           <el-date-picker v-else-if="v.type == 'date'" v-model="v.content" type="datetime"  value-format="yyyy-MM-dd HH:mm:ss" placeholder="选择日期时间" default-time="00:00:00"></el-date-picker>
 
